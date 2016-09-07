@@ -80,13 +80,7 @@ class AcrHelper implements ProtectedContextAwareInterface {
 	}
 
 	private function getInnerHtml($node) {
-		$innerHTML = '';
-		$children = $node->childNodes;
-		foreach ($children as $child) {
-			$innerHTML .= trim($child->ownerDocument->saveXML($child));
-		}
-
-		return $innerHTML;
+		return $node->ownerDocument->saveXML($node);
 	}
 
 	/**
