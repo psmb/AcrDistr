@@ -1,60 +1,42 @@
 namespace: T=TYPO3.TypoScript
-prototype(Psmb.Acr:Report) < prototype(T:Collection) {
-	@process.tmpl = ${'<style>
-body {
-	font-family: sans-serif;
-}
-.itemprop-name {
-	margin-bottom: 12px;
-}
-.itemprop-item {
-	font-size: 13px !important;
-	padding: 6px;
-	border-radius: 3px;
-	margin: 3px;
-}
-.itemprop-item * {
-	font-size: 13px !important;
-}
-.error {
-	background-color: #E00000;
-	color: white;
-}
-.success {
-	background-color: #C0FFE0;
-}
-	</style>' + value}
-	@context.domain = ${'http://' + request.arguments.domain}
-	collection = ${Acr.scan(domain)}
-	itemName = 'section'
-	itemKey = 'sectionUrl'
-	itemRenderer = T:Array {
-		@process.tmpl = ${'<div>' + value + '</div>'}
-		title = ${'<h2><a href="' + domain + '/' + sectionUrl +'">' + section.label + '</a></h2>'}
-		content = T:Collection {
-			@process.tmpl = ${'<ul>' + value + '</ul>'}
-			@process.isset = ${section.error ? '<div class="error">Такой страницы нет!</div>' : '<ul>' + value + '</ul>'}
-			collection = ${section.children}
-			itemName = 'itemtype'
-			itemKey = 'itemtypeName'
-			itemRenderer = T:Array {
-				@process.tmpl = ${'<li>' + value + '</li>'}
-				title = ${'<h3>' + itemtype.label + (itemtypeName != 'common' && ' (itemtype="http://obrnadzor.gov.ru/microformats/' + itemtypeName + '")') + '</h3>'}
-				content = T:Collection {
-					@process.tmpl = ${'<ul>' + value + '</ul>'}
-					collection = ${itemtype.children}
-					itemName = 'itemprop'
-					itemKey = 'itempropName'
-					itemRenderer = T:Array {
-						@process.tmpl = ${'<li><dl>' + value + '</dl></li>'}
-						title = ${'<dt class="itemprop-name">' + itemprop.label + ' (<strong>itemprop="' + itempropName + '"</strong>)</dt>'}
-						content = T:Collection {
-							@process.tmpl = ${'<dd class="itemprop">' + (itemprop.result ? value : '<div class="itemprop-item error">тег отсутствует</div>') + '</dd>'}
-							collection = ${itemprop.result}
-							itemName = 'itempropItem'
-							itemRenderer = ${'<div class="itemprop-item success">' + itempropItem + '</div>'}
-						}
 
+prototype(Psmb.Acr:Report) < prototype(T:Array) {
+	title = ${request.arguments.domain ? '<h1>Отчет для сайта ' + request.arguments.domain + '</h1>' : '<h1>Проверка сайта образовательного учреждения</h1>'}
+	form = ${'<form action="/" method="GET"><input type="text" placeholder="vash-domain.ru" name="domain"><input type="submit" value="Проверить"></form>'}
+	@context.domain = ${'http://' + request.arguments.domain}
+	report = T:Collection {
+		@if.domainSet = ${request.arguments.domain ? true : false}
+		collection = ${Acr.scan(domain)}
+		itemName = 'section'
+		itemKey = 'sectionUrl'
+		itemRenderer = T:Array {
+			@process.tmpl = ${'<div>' + value + '</div>'}
+			title = ${'<h2><a href="' + domain + '/' + sectionUrl +'">' + section.label + '</a></h2>'}
+			content = T:Collection {
+				@process.tmpl = ${'<ul>' + value + '</ul>'}
+				@process.isset = ${section.error ? '<div class="error">Такой страницы нет!</div>' : '<ul>' + value + '</ul>'}
+				collection = ${section.children}
+				itemName = 'itemtype'
+				itemKey = 'itemtypeName'
+				itemRenderer = T:Array {
+					@process.tmpl = ${'<li>' + value + '</li>'}
+					title = ${'<h3>' + itemtype.label + (itemtypeName != 'common' && ' (itemtype="http://obrnadzor.gov.ru/microformats/' + itemtypeName + '")') + '</h3>'}
+					content = T:Collection {
+						@process.tmpl = ${'<ul>' + value + '</ul>'}
+						collection = ${itemtype.children}
+						itemName = 'itemprop'
+						itemKey = 'itempropName'
+						itemRenderer = T:Array {
+							@process.tmpl = ${'<li><dl>' + value + '</dl></li>'}
+							title = ${'<dt class="itemprop-name">' + itemprop.label + ' (<strong>itemprop="' + itempropName + '"</strong>)</dt>'}
+							content = T:Collection {
+								@process.tmpl = ${'<dd class="itemprop">' + (itemprop.result ? value : '<div class="itemprop-item error">тег отсутствует</div>') + '</dd>'}
+								collection = ${itemprop.result}
+								itemName = 'itempropItem'
+								itemRenderer = ${'<div class="itemprop-item success">' + itempropItem + '</div>'}
+							}
+
+						}
 					}
 				}
 			}
@@ -68,3 +50,5 @@ body {
 		maximumLifetime = '300'
 	}
 }
+page.@cache.entryIdentifier.domain = ${request.arguments.domain}
+root.@cache.entryIdentifier.domain = ${request.arguments.domain}

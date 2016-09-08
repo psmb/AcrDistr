@@ -1,2 +1,31 @@
-root>
-root = Psmb.Acr:Report
+page = Page
+page.head.styles = ${'<style>
+body {
+	font-family: sans-serif;
+}
+.itemprop-name {
+	margin-bottom: 12px;
+}
+.itemprop-item {
+	font-size: 13px !important;
+	padding: 6px;
+	border-radius: 3px;
+	margin: 3px;
+}
+.itemprop-item * {
+	font-size: 13px !important;
+}
+.error {
+	background-color: #E00000;
+	color: white;
+}
+.success {
+	background-color: #C0FFE0;
+}
+	</style>'}
+
+page.body = TYPO3.TypoScript:Tag {
+	content = TYPO3.TypoScript:Array {
+		report = Psmb.Acr:Report
+	}
+}
