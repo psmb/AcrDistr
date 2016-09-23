@@ -11,7 +11,7 @@ prototype(Psmb.Acr:Report) < prototype(T:Array) {
 		itemKey = 'sectionUrl'
 		itemRenderer = T:Array {
 			@process.tmpl = ${'<div>' + value + '</div>'}
-			title = ${'<h2><a href="' + domain + '/' + sectionUrl +'">' + section.label + '</a></h2>'}
+			title = ${'<h2><a href="' + domain + sectionUrl +'">' + section.label + '</a></h2>'}
 			content = T:Collection {
 				@process.tmpl = ${'<ul>' + value + '</ul>'}
 				@process.isset = ${section.error ? '<div class="error">Такой страницы нет!</div>' : '<ul>' + value + '</ul>'}
