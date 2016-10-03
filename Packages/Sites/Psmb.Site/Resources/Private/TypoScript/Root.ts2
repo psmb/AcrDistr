@@ -37,6 +37,6 @@ page.body = TYPO3.TypoScript:Tag {
 			<li><a target="_blank" href="http://spider.kartavuzov.ru/files/docs/phpCD1EVV_57a355584ec84.pdf"><strong>Методические рекомендации</strong> представления информации об образовательной организации в открытых источниках с учетом соблюдения требований законодательства в сфере образования (для образовательных организаций высшего образования), Письмо Рособрнадзора от 25.03.2015 № 07-675</a></li>
 		</ul>
 		'}
-		info.@process.onlyMain = ${request.arguments.domain ? false : true}
+		info.@if.onlyMain = ${request.arguments.domain ? false : true}
 	}
 }
