@@ -1,9 +1,7 @@
 page = Page
 
-page.body = TYPO3.TypoScript:Tag {
-	content = TYPO3.TypoScript:Template {
-		tempatePath = 'resource://Psmb.Site/Resources/Private/TypoScript/Root.html'
-		report = Psmb.Acr:Report
-		isMain = ${request.arguments.domain ? false : true}
-	}
+page.body = TYPO3.TypoScript:Template {
+        templatePath = 'resource://Psmb.Site/Private/TypoScript/Root.html'
+	report = Psmb.Acr:Report
+	isMain = ${request.arguments.domain ? false : true}
 }
