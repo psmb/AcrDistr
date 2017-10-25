@@ -20,7 +20,7 @@ prototype(Psmb.Acr:Report) < prototype(T:Array) {
 				itemKey = 'itemtypeName'
 				itemRenderer = T:Array {
 					@process.tmpl = ${'<li>' + value + '</li>'}
-					title = ${'<h3>' + itemtype.label + (itemtypeName != 'common' && ' (itemtype="http://obrnadzor.gov.ru/microformats/' + itemtypeName + '")') + '</h3>'}
+					title = ${'<h3>' + itemtype.label + (itemtypeName != 'common' && ' (itemprop="' + itemtypeName + '")') + '</h3>'}
 					content = T:Collection {
 						@process.tmpl = ${'<ul>' + value + '</ul>'}
 						collection = ${itemtype.children}
