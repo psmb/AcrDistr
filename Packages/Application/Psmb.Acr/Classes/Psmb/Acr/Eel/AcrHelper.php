@@ -73,9 +73,13 @@ class AcrHelper implements ProtectedContextAwareInterface {
 		} else {
 			$items = $xpath->query("//*[contains(@itemprop,'" . $typeName . "')]//*[contains(@itemprop,'" . $propName . "')]");
 		}
-		foreach($items as $item) {
-			$result[] = strip_tags($this->getInnerHtml($item), '<a><div><p><h1><h2><h3><h4><br><table><tr><td><th><tbody>');
-		}
+		foreach($items as $item) {                                                                                                 
+                        $itemprop = $item->getAttribute('itemprop');                                                                       
+                        $itemprops = explode(' ', $itemprop);                                                                              
+                        if (in_array($propName, $itemprops)) {                                                                             
+                                $result[] = strip_tags($this->getInnerHtml($item), '<a><div><p><h1><h2><h3><h4><br><table><tr><td><th><tbody>');
+                        }                                                                                                                       
+                }
 		return $result;
 	}
 
