@@ -1,0 +1,37 @@
+version: '3.1'
+  db:
+    image: mariadb:10.3
+    volumes:
+      - /var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: pass
+
+  web:
+    networks:
+      - default
+      - main
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.port=80"
+        - "traefik.default.protocol=http"
+        - "traefik.docker.network=main"
+        - "traefik.frontend.rule=Host:obrnadzor.nut.cc,dev.obrnadzor.nut.cc,www.obrnadzor.nut.cc"
+    image: dimaip/docker-neos-alpine:latest
+    ports:
+      - '80'
+    depends_on:
+      - db
+    volumes:
+      - /data
+    environment:
+      - REPOSITORY_URL=https://github.com/dimaip/AcrDistr
+      - PHP_TIMEZONE=Europe/Moscow
+      - SITE_PACKAGE=Psmb.Site
+networks:
+  main:
+    external:
+      name: main
