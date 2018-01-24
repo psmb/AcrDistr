@@ -1,4 +1,4 @@
-namespace: T=TYPO3.TypoScript
+namespace: T=Neos.Fusion
 
 prototype(Psmb.Acr:Report) < prototype(T:Array) {
 	title = ${request.arguments.domain ? '<h1>Отчет для сайта ' + request.arguments.domain + '</h1>' : '<h1>Проверка сайта образовательного учреждения</h1>'}

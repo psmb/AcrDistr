@@ -3,7 +3,7 @@
  <site name="Site" state="1" siteResourcesPackageKey="Psmb.Site" siteNodeName="site">
   <nodes formatVersion="2.0">
    <node nodeName="site">
-    <variant workspace="live" nodeType="TYPO3.Neos:Document" sortingIndex="100" version="1" removed="" hidden="" hiddenInIndex="">
+    <variant workspace="live" nodeType="Neos.Neos:Document" sortingIndex="100" version="1" removed="" hidden="" hiddenInIndex="">
      <dimensions>
 
      </dimensions>

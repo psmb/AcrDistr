@@ -1,9 +1,9 @@
 <?php
 namespace Psmb\Acr\Eel;
 
-use TYPO3\Eel\ProtectedContextAwareInterface;
-use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Eel\ProtectedContextAwareInterface;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Eel helper as a wrapper around Twitter API

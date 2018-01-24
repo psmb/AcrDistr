@@ -1,0 +1,7 @@
+page = Page
+
+page.body = Neos.Fusion:Template {
+        templatePath = 'resource://Psmb.Site/Private/Fusion/Root.html'
+	report = Psmb.Acr:Report
+	isMain = ${request.arguments.domain ? false : true}
+}
