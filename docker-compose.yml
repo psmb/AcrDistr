@@ -20,7 +20,7 @@ services:
         - "traefik.port=80"
         - "traefik.default.protocol=http"
         - "traefik.docker.network=main"
-        - "traefik.frontend.rule=Host:obrnadzor.nut.cc,dev.obrnadzor.nut.cc,www.obrnadzor.nut.cc"
+        - "traefik.frontend.rule=Host:obrnadzor.sfi.ru,dev.obrnadzor.sfi.ru,www.obrnadzor.sfi.ru"
     image: dimaip/docker-neos-alpine:latest
     ports:
       - '80'
